@@ -1,0 +1,7 @@
+<sly data-sly-use.model="com.aem.assignment.core.models.TestingModel">
+    <div data-sly-list="${model.list}">
+        <h2>${item.title}</h2>
+        <h4>${item.description}</h4>
+        <img src="${item.imagePath}" alt="product image">
+    </div>
+</sly>

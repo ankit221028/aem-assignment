@@ -1,0 +1,9 @@
+<h1>Frequently asked questions</h1>
+<sly data-sly-use.model="com.aem.assignment.core.models.FaqComponentModel">
+<div data-sly-list="${model.faqList}">
+        <div class="faq-item">
+            <h3>${item.question}</h3>
+            <p>${item.answer}</p>
+        </div>
+    </div>
+</sly>
