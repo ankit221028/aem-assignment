@@ -97,6 +97,7 @@ public class ContentCreationServiceImpl implements ContentCreationService {
     }
 
     private void createPages(ResourceResolver resolver, JSONObject contentJson) throws WCMException, PersistenceException, JSONException, ReplicationException, RepositoryException {
+
         final Logger log = LoggerFactory.getLogger(this.getClass());
 
         try {
@@ -141,6 +142,34 @@ public class ContentCreationServiceImpl implements ContentCreationService {
                 resolver.close();
             }
         }
+
+        PageManager pageManager = pageManagerFactory.getPageManager(resolver);
+        String pageTitle = contentJson.getString("title");
+        String pageName = pageTitle.toLowerCase().replace(" ", "-");
+        Page newPage = pageManager.create(PARENT_PATH, pageName, TEMPLATE_PATH, pageTitle);
+
+        // Add content to the page
+        Resource contentResource = resolver.getResource(newPage.getContentResource().getPath());
+        ModifiableValueMap properties = contentResource.adaptTo(ModifiableValueMap.class);
+        properties.put("jcr:title", pageTitle);
+        properties.put("productId", contentJson.getInt("id"));
+        properties.put("price", contentJson.getDouble("price"));
+        properties.put("description", contentJson.getString("description"));
+        properties.put("category", contentJson.getString("category"));
+        properties.put("image", contentJson.getString("image"));
+        JSONObject rating = contentJson.getJSONObject("rating");
+        properties.put("ratingRate", rating.getDouble("rate"));
+        properties.put("ratingCount", rating.getInt("count"));
+
+        // Save the changes
+        resolver.commit();
+
+        // Replicate the page
+        replicator.replicate(resolver.adaptTo(Session.class), ReplicationActionType.ACTIVATE, newPage.getPath());
+
+        // Log the operation
+        logAudit(resolver, newPage.getPath(), contentJson.toString(), "Page created and replicated successfully.");
+
     }
 
     private void logAudit(ResourceResolver resolver, String pagePath, String apiResponse, String status) throws PersistenceException, RepositoryException {
