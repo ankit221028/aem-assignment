@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Multi field implementation class
+ */
 @Component(service = MultiService.class)
 public class MultiServiceImpl implements MultiService {
-
 
     @Reference
     ResourceResolverFactory resourceResolverFactory;

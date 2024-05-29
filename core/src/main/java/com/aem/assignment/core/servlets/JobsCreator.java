@@ -12,23 +12,52 @@ import org.osgi.service.event.EventHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component(service= EventHandler.class,immediate = true,property = {
+/**
+ * Event handler that listens for resource removal events and creates jobs accordingly.
+ */
+@Component(service = EventHandler.class, immediate = true, property = {
         EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/REMOVED",
         EventConstants.EVENT_FILTER + "=(path=/content/aem_assignment/us/en/*)"
 })
-public class JobsCreator implements  EventHandler{
+public class JobsCreator implements EventHandler {
+
     @Reference
-    JobManager jobManager;
+    private JobManager jobManager;
+
+    /**
+     * Handles the resource removal event and creates a job.
+     *
+     * @param event the event to handle
+     */
     @Override
     public void handleEvent(Event event) {
         try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("path", event.getTopic());
-            map.put("event", event.getProperty(SlingConstants.PROPERTY_PATH));
-            Job job = jobManager.addJob("customjob", map);
+            Map<String, Object> jobProperties = createJobProperties(event);
+            createJob(jobProperties);
+        } catch (Exception e) {
+            e.printStackTrace(); // Consider logging the exception
         }
-        catch(Exception e){
+    }
 
-        }
+    /**
+     * Creates job properties from the event.
+     *
+     * @param event the event to extract properties from
+     * @return a map containing job properties
+     */
+    private Map<String, Object> createJobProperties(Event event) {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("path", event.getTopic());
+        properties.put("event", event.getProperty(SlingConstants.PROPERTY_PATH));
+        return properties;
+    }
+
+    /**
+     * Creates a job with the given properties.
+     *
+     * @param jobProperties the properties to set for the job
+     */
+    private void createJob(Map<String, Object> jobProperties) {
+        jobManager.addJob("customjob", jobProperties);
     }
 }

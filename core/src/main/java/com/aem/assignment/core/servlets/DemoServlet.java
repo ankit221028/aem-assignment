@@ -17,6 +17,9 @@ import javax.jcr.Session;
 import javax.servlet.Servlet;
 import java.io.IOException;
 
+/**
+ * Practice servlet, to add property to the nodes using JCR api.
+ */
 @Component(service = Servlet.class,
         property = {
                 "sling.servlet.methods=" + HttpConstants.METHOD_GET,

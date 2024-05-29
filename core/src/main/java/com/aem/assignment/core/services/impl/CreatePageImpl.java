@@ -18,6 +18,9 @@ import javax.management.Query;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A Page creation service which creates page using PageManager
+ */
 @Component(service = CreatePage.class)
 public class CreatePageImpl implements CreatePage {
 

@@ -5,6 +5,9 @@ import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
+/**
+ * Practice scheduler
+ */
 @Component(service = Runnable.class)
 @Designate(ocd=ProductScheduler.Config.class)
 public class ProductScheduler implements Runnable{

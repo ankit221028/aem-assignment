@@ -60,7 +60,5 @@ public class Weather extends SlingSafeMethodsServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

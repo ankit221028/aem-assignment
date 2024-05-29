@@ -54,14 +54,11 @@ public class NoUseServlet extends SlingSafeMethodsServlet {
         return query;
     }
 
-
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         //Iterate query results
         response.getWriter().write("hello");
         ResourceResolver resolver = request.getResourceResolver();
-
-
 
         Session session = resolver.adaptTo(Session.class);
         Query query = queryBuilder.createQuery(PredicateGroup.create(getQuery("/content/we-retail")),session);

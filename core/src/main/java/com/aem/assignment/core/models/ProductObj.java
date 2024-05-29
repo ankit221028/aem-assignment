@@ -8,7 +8,12 @@ public class ProductObj {
     private String productPrice;
     private String productImage;
 
-  //===============Getters and Setters for the properties of ProductObj class===================//
+    public ProductObj(String productTitle, String productPrice, String productImage) {
+        this.productTitle = productTitle;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
+    }
+//===============Getters and Setters for the properties of ProductObj class===================//
 
     public String getProductTitle() {
         return productTitle;

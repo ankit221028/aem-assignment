@@ -7,15 +7,15 @@ import java.util.List;
 public interface ProductDetailService {
 
     /**
-     * Retrieves the product data for a given main URL.
+     * Retrieves product data from a specified main URL.
      *
      * @param mainURL The main URL from which to retrieve product data.
-     * @return The product entity containing the data retrieved.
+     * @return The product entity containing the retrieved data.
      */
     ProductEntity getProductsData(String mainURL);
 
     /**
-     * Retrieves a list of product entities from the specified main URL.
+     * Retrieves a list of product entities from a specified main URL.
      *
      * @param mainUrl The main URL from which to retrieve the list of products.
      * @return A list of product entities.

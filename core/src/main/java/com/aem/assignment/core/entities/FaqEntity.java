@@ -4,13 +4,8 @@ public class FaqEntity {
     private String question;
     private String answer;
 
-
-    public void setQuestion(String question) {
+    public FaqEntity(String question, String answer) {
         this.question = question;
-    }
-
-
-    public void setAnswer(String answer) {
         this.answer = answer;
     }
 }

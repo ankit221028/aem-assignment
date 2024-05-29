@@ -39,14 +39,10 @@ public class FaqComponentModelImpl implements FaqComponentModel {
     public void init(){
         if(faqFields!=null && faqFields.hasChildren()){
             for(Resource res: faqFields.getChildren()){
-                FaqEntity faqEntity = new FaqEntity();
                 ValueMap valueMap = res.getValueMap();
-                if(valueMap.containsKey("faqQuestion")){
-                    faqEntity.setQuestion(valueMap.get("faqQuestion", String.class));
-                }
-                if(valueMap.containsKey("faqAnswer")){
-                    faqEntity.setAnswer(valueMap.get("faqAnswer", String.class));
-                }
+                String faqQuestion = valueMap.get("faqQuestion", String.class);
+                String faqAnswer = valueMap.get("faqAnswer", String.class);
+                FaqEntity faqEntity = new FaqEntity(faqQuestion,faqAnswer);
                 faqList.add(faqEntity);
             }
         }
