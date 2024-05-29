@@ -2,7 +2,9 @@ package com.aem.assignment.core.entities;
 
 import lombok.Data;
 
-@Data
+/**
+ * ProductEntity class which contains different properties of a Product like id, title, price, description, category, imagePath, rating.
+ */
 public class ProductEntity {
     private int id;
     private String title;
@@ -58,24 +60,17 @@ public class ProductEntity {
         this.image = image;
     }
 
-    public Rating getRating() {
-        return rating;
-    }
 
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
 
     private String image;
     private Rating rating;
 
-    // Getter and Setter methods
+
 
     @Data
     public static class Rating {
         private double rate;
         private int count;
 
-        // Getter and Setter methods
     }
 }

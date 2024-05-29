@@ -1,19 +1,16 @@
 package com.aem.assignment.core.models.impl;
 
-
 import com.adobe.granite.ui.components.rendercondition.RenderCondition;
 import com.adobe.granite.ui.components.rendercondition.SimpleRenderCondition;
 import com.aem.assignment.core.models.UserGroupRenderCondition;
 import org.apache.jackrabbit.api.security.user.Authorizable;
 import org.apache.jackrabbit.api.security.user.Group;
-import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
@@ -23,13 +20,14 @@ import javax.annotation.PostConstruct;
 import javax.jcr.RepositoryException;
 import java.util.Iterator;
 
-
-@Model(adaptables = SlingHttpServletRequest.class
-        ,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+/**
+ * Implementation of the UserGroupRenderCondition interface.
+ * This class checks if the current user belongs to a specified group and sets a render condition based on the result.
+ */
+@Model(adaptables = SlingHttpServletRequest.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class UserGroupRenderConditionImpl implements UserGroupRenderCondition {
 
-    private static final Logger LOGGER
-            = LoggerFactory.getLogger(UserGroupRenderCondition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserGroupRenderCondition.class);
 
     @ScriptVariable
     SlingHttpServletRequest request;
@@ -40,21 +38,19 @@ public class UserGroupRenderConditionImpl implements UserGroupRenderCondition {
     @SlingObject
     private ResourceResolver resourceResolver;
 
-    boolean isInContentAuthorGroup = false;
-
-
+    /**
+     * Initializes the render condition by checking the user's group membership.
+     */
     @PostConstruct
     void init(){
-        UserManager userManager = resourceResolver
-                .adaptTo(UserManager.class);
+        UserManager userManager = resourceResolver.adaptTo(UserManager.class);
         LOGGER.debug("Current User manager: {}", userManager);
         if(userManager == null) return;
 
         boolean isInContentAuthorGroup = false;
 
         try{
-            Authorizable currentUser = userManager
-                    .getAuthorizable(resourceResolver.getUserID());
+            Authorizable currentUser = userManager.getAuthorizable(resourceResolver.getUserID());
             LOGGER.debug("Current user is: ",currentUser);
             Iterator<Group> groupIterator = currentUser.memberOf();
             while(groupIterator.hasNext()){
@@ -70,13 +66,9 @@ public class UserGroupRenderConditionImpl implements UserGroupRenderCondition {
             throw new RuntimeException(e);
         }
 
-        LOGGER.debug("is Current user is a member of Author content group: {}"
-                ,isInContentAuthorGroup);
+        LOGGER.debug("is Current user is a member of Author content group: {}",isInContentAuthorGroup);
 
-        request.setAttribute(RenderCondition.class
-                .getName(),new SimpleRenderCondition(
-                isInContentAuthorGroup)
-        );
+        request.setAttribute(RenderCondition.class.getName(),new SimpleRenderCondition(isInContentAuthorGroup));
     }
 
 }

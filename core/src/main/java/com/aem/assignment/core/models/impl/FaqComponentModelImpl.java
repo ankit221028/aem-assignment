@@ -15,18 +15,26 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+/**
+ * The implementation class of the FaqComponentModel.
+ */
 @Model(adaptables = {SlingHttpServletRequest.class},
         adapters = {FaqComponentModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class FaqComponentModelImpl implements FaqComponentModel {
 
-    List<FaqEntity> faqList = new ArrayList<>();
+    private List<FaqEntity> faqList = new ArrayList<>();
 
-
+    /**
+     * The @ChildResource is used to fetch the child resource under the present resource.
+     */
     @ChildResource
-    Resource faqFields;
+    private Resource faqFields;
 
+    /**
+     * This function works as a constructor and fills the faq entries in the faqList as soon as the getter for faqList
+     * is called.
+     */
     @PostConstruct
     public void init(){
         if(faqFields!=null && faqFields.hasChildren()){
@@ -36,11 +44,9 @@ public class FaqComponentModelImpl implements FaqComponentModel {
                 if(valueMap.containsKey("faqQuestion")){
                     faqEntity.setQuestion(valueMap.get("faqQuestion", String.class));
                 }
-
                 if(valueMap.containsKey("faqAnswer")){
                     faqEntity.setAnswer(valueMap.get("faqAnswer", String.class));
                 }
-
                 faqList.add(faqEntity);
             }
         }
@@ -50,8 +56,5 @@ public class FaqComponentModelImpl implements FaqComponentModel {
         return faqList;
     }
 
-    public void setFaqList(List<FaqEntity> faqList) {
-        this.faqList = faqList;
-    }
 }
 

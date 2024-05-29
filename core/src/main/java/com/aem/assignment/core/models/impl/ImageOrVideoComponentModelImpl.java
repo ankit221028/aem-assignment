@@ -11,7 +11,9 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.util.ArrayList;
 
-@Data
+/**
+ * Implementation class for ImageOrVideoComponentModel, which is mostly handled using the frontend itself.
+ */
 @Model(adaptables = {SlingHttpServletRequest.class},
         adapters = {ImageOrVideoComponentModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
@@ -28,9 +30,5 @@ public class ImageOrVideoComponentModelImpl implements ImageOrVideoComponentMode
     @ValueMapValue
     @Default(values = "")
     private String video;
-
-
-
-
 
 }

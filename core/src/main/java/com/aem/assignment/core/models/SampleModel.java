@@ -23,6 +23,9 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.*;
 
+/**
+ * Only a practice model for learning purpose.
+ */
 @Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class SampleModel {
     @SlingObject

@@ -31,8 +31,8 @@ public final class CommonUtils {
     /**
      * Performs an HTTP request based on the specified method, URL, request object, and token.
      *
-     * @param method       The HTTP method (GET or POST).
-     * @param apiUrl       The URL to send the request to.
+     * @param method       To define GET or POST http method
+     * @param apiUrl       The URL from which the response needs to be fetched
      * @param requestObject The object to include in the request body (for POST requests).
      * @param token        The authentication token (optional).
      * @param <T>          The type of the request object.
@@ -108,16 +108,13 @@ public final class CommonUtils {
         return null;
     }
 
-
     /**
-     * Sorts a list of ProductEntity objects based on the price.
-     *
-     * @param productEntityList The list of ProductEntity objects to sort.
-     * @param sortOrder         The sort order ('asc' for ascending, 'dsc' for descending).
-     * @return The sorted list of ProductEntity objects.
-     * @throws IllegalArgumentException If an invalid sort order is provided.
+     * A common function which can be reused by passing the ProductEntity to sort and the sorting order.
+     * @param productEntityList
+     * @param sortOrder
+     * @return Sorted list based on the sorting selected by user.
+     * @throws IllegalArgumentException if the sort order is not Ascending or Descending.
      */
-    // Sort the product list based on the price
     public static List<ProductEntity> sortProductEntitiesByPrice(List<ProductEntity> productEntityList, String sortOrder) {
         Collections.sort(productEntityList, new Comparator<ProductEntity>() {
             @Override
@@ -139,13 +136,11 @@ public final class CommonUtils {
         return productEntityList;
     }
 
-    //----------- Get params From URL -----------
-
     /**
-     * Extracts parameters from the URL of a Sling HTTP servlet request.
+     * Used to Extracts parameters from the URL of a Sling HTTP servlet request and stores them in a List of String .
      *
-     * @param request The SlingHttpServletRequest from which to extract parameters.
-     * @return A list of parameters extracted from the URL.
+     * @param request
+     * @return Returns a list of parameters extracted from the suffix of URL.
      */
     public static List<String> getParamsFromURL(final SlingHttpServletRequest request){
         RequestPathInfo requestPathInfo = request.getRequestPathInfo();

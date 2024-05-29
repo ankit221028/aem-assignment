@@ -18,6 +18,9 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation for ProductCarousal Model which is used to display the Products in the form of a carousal.
+ */
 @Model(adaptables = {SlingHttpServletRequest.class},
         adapters = {ProductCarousalModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
@@ -30,14 +33,14 @@ public class ProductCarousalModelImpl implements ProductCarousalModel {
 
     private static final String BASE_URL = "https://fakestoreapi.com/products/";
 
-
-    //------Sort By--------
-
+    /**
+     * Fetches the sort type selected by the user at the publish page using the value map properties
+     */
     @ValueMapValue
     @Default(values = StringUtils.EMPTY)
     String sortFiltersType;
 
-    List<ProductEntity> productEntityList = new ArrayList<>();
+    private List<ProductEntity> productEntityList = new ArrayList<>();
 
     /**
      * Retrieves the sorted list of product entities based on the specified sort type.

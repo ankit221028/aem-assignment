@@ -17,10 +17,11 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Multi field practice class using the "MultiPojo" pojo class
+ */
 @Model(adaptables = SlingHttpServletRequest.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class MultiModel {
-
-    List<MultiPojo> list = new ArrayList<>();
 
     @ValueMapValue
     private String path;
@@ -34,7 +35,6 @@ public class MultiModel {
 
     public List<MultiPojo> getList() {
         path = products.getPath();
-
         return multiService.getMultiList(path,resolver);
     }
 }

@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
 @Model(adaptables = SlingHttpServletRequest.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class CurrencyConfig {
 
-
     @SlingObject
     SlingHttpServletRequest slingHttpServletRequest;
     @Self
@@ -24,13 +23,6 @@ public class CurrencyConfig {
 
     private String currencyCode;
     private double exchangeRate;
-
-   public void resourceGet()
-   {
-
-       Resource resource1=slingHttpServletRequest.getResourceResolver().getResource(slingHttpServletRequest.getPathInfo().toString());
-   }
-
 
     public String getCurrencyCode() {
         return currencyCode;

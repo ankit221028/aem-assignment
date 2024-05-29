@@ -31,8 +31,13 @@ public class TestingModel{
     @ScriptVariable
     Page currentPage;
 
-    List<ProductPojo> list = new ArrayList<>();
-    String strings;
+    private List<ProductPojo> list = new ArrayList<>();
+    private String strings;
+
+    /**
+     * A constructor method which is used to populate the ProductPojo entity as soon as the getter is called.
+     * @throws Exception
+     */
     @PostConstruct
     void  init() throws  Exception{
         String[] string = (String[]) currentPage.getProperties().get("id");

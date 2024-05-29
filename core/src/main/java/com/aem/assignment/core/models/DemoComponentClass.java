@@ -21,6 +21,9 @@ import org.json.JSONObject;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
+/**
+ * This class is only for practice purpose, and currently doesn't work because of addition of multiple functions.
+ */
 @Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class DemoComponentClass {
 
