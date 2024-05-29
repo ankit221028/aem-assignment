@@ -38,17 +38,19 @@ public class TestingModel{
         String str1="https://fakestoreapi.com/products/"+str;
         HttpURLConnection connection = (HttpURLConnection) new URL(str1).openConnection();
         connection.setRequestMethod("GET");
-        ProductPojo obj = new ProductPojo();
+
         int statusCode = connection.getResponseCode();
         if (statusCode == HttpURLConnection.HTTP_OK) {
             String jsonResponse = IOUtils.toString(connection.getInputStream());
             JSONObject data = null;
             try {
                 data = new JSONObject(jsonResponse);
-                obj.setImagePath(data.getString("image"));
-                obj.setDescription(data.getString("description"));
-                obj.setId(data.getInt("id"));
-                obj.setTitle(data.getString("title"));
+                String imagePath = data.getString("image");
+                String description = data.getString("description");
+                Integer id = data.getInt("id");
+                String title = data.getString("title");
+                ProductPojo obj = new ProductPojo(title,description,imagePath,id);
+
                 list.add(obj);
             } catch (JSONException e) {
                 throw new RuntimeException(e);

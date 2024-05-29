@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * Implementation class for SingleProductModel.
+ * Retrieves product details based on the product ID from the request URL.
+ */
 @Model(adaptables = {SlingHttpServletRequest.class},
         adapters = {SingleProductModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
@@ -23,32 +27,39 @@ public class SingleProductModelImpl implements SingleProductModel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SingleProductModel.class);
 
-    private static final String BASE_URL = "https://fakestoreapi.com/products/2";
+    // Base URL for fetching product details
+    private static final String BASE_URL = "https://fakestoreapi.com/products/";
 
     @ScriptVariable
-    SlingHttpServletRequest request;
+    private SlingHttpServletRequest request;
 
     @OSGiService
     private ProductDetailService productDetailService;
 
-    ProductEntity productEntity = new ProductEntity();
+
+    private ProductEntity productEntity = new ProductEntity();
+
 
     @Default(values = StringUtils.EMPTY)
-    String productId;
+    private String productId;
 
+    /**
+     * Retrieves product entity based on the product ID from the request URL.
+     *
+     * @return ProductEntity containing product details.
+     */
     @Override
-    public ProductEntity getProductEntity(){
+    public ProductEntity getProductEntity() {
         List<String> suffix = CommonUtils.getParamsFromURL(request);
-        LOGGER.debug("suffix fetched from current URL: {}",suffix);
+        LOGGER.debug("Suffix fetched from current URL: {}", suffix);
 
-        if(!suffix.isEmpty()){
+
+        if (!suffix.isEmpty()) {
             productId = suffix.get(0);
-            productEntity = productDetailService.getProductsData(BASE_URL+productId);
-            LOGGER.debug("product entity based on the URL Suffix: {}", productEntity);
-            return productEntity;
+            String productUrl = BASE_URL + productId;
+            productEntity = productDetailService.getProductsData(productUrl);
+            LOGGER.debug("Product entity based on the URL suffix: {}", productEntity);
         }
-        return new ProductEntity();
+        return productEntity;
     }
-
 }
-

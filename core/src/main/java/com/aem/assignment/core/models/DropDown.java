@@ -40,7 +40,6 @@ public class DropDown {
                 list.add(childPage.getTitle());
             }
         }
-
     }
 
     public List<String> getList() {

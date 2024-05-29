@@ -65,7 +65,7 @@ public class JobsConsumer implements JobConsumer {
      */
     private ResourceResolver getNewResolver() throws LoginException {
         Map<String, Object> params = new HashMap<>();
-        params.put(ResourceResolverFactory.SUBSERVICE, "testuser");
+        params.put(ResourceResolverFactory.SUBSERVICE, "TestUser");
         return resourceResolverFactory.getResourceResolver(params);
     }
 

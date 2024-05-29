@@ -12,6 +12,19 @@ public class ProductEntity {
     private String description;
     private String category;
 
+    public ProductEntity() {
+    }
+
+    public ProductEntity(int id, String title, double price, String description, String category, String image, Rating rating) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+        this.image = image;
+        this.rating = rating;
+    }
+
     public int getId() {
         return id;
     }

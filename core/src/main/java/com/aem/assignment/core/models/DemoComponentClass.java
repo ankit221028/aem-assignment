@@ -30,7 +30,7 @@ public class DemoComponentClass {
     @ScriptVariable
     SlingHttpServletRequest request;
 
-    ProductPojo productObj = new ProductPojo();
+
     @PostConstruct
     protected  void init(){
         Resource resource = request.getResource();
